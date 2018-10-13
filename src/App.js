@@ -9,13 +9,15 @@ import 'react-awesome-button/dist/styles.css';
 import Notifications, {notify} from 'react-notify-toast';
 
 
-const code = `function add(a, b) {
-  return a + b;
-}
+const exampleCode =
+    `circle "circle1"
+    radius: 40
+    color: red
 `;
 
-const img = <svg height="100" width="100">
-    <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+
+const exampleImg = <svg height="100" width="100">
+    <circle cx="50" cy="50" r="40" fill="red" />
 </svg>
 
 class App extends Component {
@@ -23,27 +25,30 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-            items: [{'name': 'cleeooo'}],
-            code: code,
-            drawing: ''
+            items: [{'svg': exampleImg}],
+            code: exampleCode,
+            drawing: exampleImg
         };
-        this.fetchDrawing = this.fetchDrawing.bind(this);
+        this.renderDrawing = this.renderDrawing.bind(this);
     }
 
     componentDidMount(){
-        // fetch('https://afd295a2-049f-4833-9935-875c90e4bd25.mock.pstmn.io/demo')
-        //     .then(res => res.json())
-        //     .then(json => {
-        //         this.setState({
-        //             items: json,
-        //             drawing: json[0]['name']
-        //         })
-        //     });
+        fetch('https://749d7bea-94d5-4b69-a2df-70414f6dfb4e.mock.pstmn.io/post')
+            .then(res => res.json())
+            .then(json => {
+                this.setState({
+                    items: json,
+                    drawing: json['svg']
+                })
+            });
     }
 
-    // Returns the fetched image, or renders an error.
-    fetchDrawing() {
-        var url = 'https://a765f506-35a5-4c86-9cff-de1b16a91a83.mock.pstmn.io/he';
+    /**
+     Sends the current code input to the DSL parser.
+     Fetches and renders the SVG image from the parser, or displays an error.
+     **/
+    renderDrawing() {
+        var url = 'https://749d7bea-94d5-4b69-a2df-70414f6dfb4e.mock.pstmn.io/post';
         var data = {data: this.state.code};
 
         fetch(url, {
@@ -51,22 +56,47 @@ class App extends Component {
             body: JSON.stringify(data),
         }).then(res => res.json())
             .then(response =>
+                //this.setState({drawing: this.parse(response)})
                 console.log(response)
-                //this.setState({items: response})
             )
             .catch(error => console.error('Error:', error));
-           this.setState ({drawing: this.state.items[0]['name']});
     }
+
+    parse(response) {
+
+        // Empty or undefined response from server.
+        if (response === null || response[0] === null ||
+            response === 'undefined' || response[0] === 'undefined'
+            || !response[0].hasOwnProperty('svg')) {
+            return <svg height="400" width="400">
+                <text>"Oops! Something went wrong."</text>
+            </svg>
+
+        }
+        // Error thrown from server.
+        if (response[0].hasOwnProperty('error')) {
+            return <svg height="400" width="400">
+                <text>{response[0]['error']}</text>
+            </svg>
+        }
+
+        // Valid SVG to render drawing.
+        else {
+            return response[0]['svg'];
+        }
+    }
+
 
     render() {
 
         return (
       <div className="App">
           <Notifications/>
-          <div className="header">draw lil shapes</div>
+          <div className="header">LIL SHAPES</div>
+          <div className="wrapper">
           <div className="editor-container">
               <div className="editor-title">
-                  Your code here.
+                  Your code here
               </div>
           <Editor
               className="editor"
@@ -82,16 +112,17 @@ class App extends Component {
               <AwesomeButton
                   className="run-code-button"
                   type="twitter"
-                  action={this.fetchDrawing}>
+                  action={this.renderDrawing}>
                   Draw my picture!
               </AwesomeButton>
           </div>
           <div className="drawing-wrapper">
-              <div className="drawing-title">your drawing here</div>
+              <div className="drawing-title">Your shapes here</div>
               <div className="drawing-canvas">
                   {this.state.drawing}
               </div>
           </div>
+      </div>
       </div>
     );
   }
