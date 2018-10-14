@@ -7,6 +7,8 @@ import 'prismjs/components/prism-javascript';
 import { AwesomeButton } from 'react-awesome-button';
 import 'react-awesome-button/dist/styles.css';
 import Notifications, {notify} from 'react-notify-toast';
+import img from './shapes.png';
+import ScrollableAnchor from 'react-scrollable-anchor';
 
 
 const exampleCode =
@@ -33,14 +35,14 @@ class App extends Component {
     }
 
     componentDidMount(){
-        fetch('https://749d7bea-94d5-4b69-a2df-70414f6dfb4e.mock.pstmn.io/post')
-            .then(res => res.json())
-            .then(json => {
-                this.setState({
-                    items: json,
-                    drawing: json['svg']
-                })
-            });
+        // fetch('https://749d7bea-94d5-4b69-a2df-70414f6dfb4e.mock.pstmn.io/post')
+        //     .then(res => res.json())
+        //     .then(json => {
+        //         this.setState({
+        //             items: json,
+        //             drawing: json['svg']
+        //         })
+        //     });
     }
 
     /**
@@ -56,8 +58,7 @@ class App extends Component {
             body: JSON.stringify(data),
         }).then(res => res.json())
             .then(response =>
-                //this.setState({drawing: this.parse(response)})
-                console.log(response)
+                this.setState({drawing: this.parse(response)})
             )
             .catch(error => console.error('Error:', error));
     }
@@ -92,7 +93,11 @@ class App extends Component {
         return (
       <div className="App">
           <Notifications/>
-          <div className="header">LIL SHAPES</div>
+          <div className="header">
+              <img src={img} width="60" height="60" className="logo"/>
+              <div className="title">Lil Shapes</div>
+              <a className='help-link' href='#section1'>Help</a>
+          </div>
           <div className="wrapper">
           <div className="editor-container">
               <div className="editor-title">
@@ -123,7 +128,14 @@ class App extends Component {
               </div>
           </div>
       </div>
+          <ScrollableAnchor id={'section1'}>
+          <div className="documentation">
+              <div className="docs-title">Help</div>
+              <div className="docs-container"></div>
+          </div>
+          </ScrollableAnchor>
       </div>
+
     );
   }
 }
