@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import { highlight, languages } from 'prismjs/components/prism-core';
-import Editor from 'react-simple-code-editor';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import { AwesomeButton } from 'react-awesome-button';
@@ -9,7 +8,9 @@ import 'react-awesome-button/dist/styles.css';
 import Notifications, {notify} from 'react-notify-toast';
 import img from './shapes.png';
 import ScrollableAnchor from 'react-scrollable-anchor';
-
+import AceEditor from 'react-ace';
+import 'brace/theme/github';
+import CustomDSLMode from './CustomDSLMode.js';
 
 const exampleCode =
     `circle "circle1"
@@ -35,6 +36,9 @@ class App extends Component {
     }
 
     componentDidMount(){
+
+        const customMode = new CustomDSLMode();
+        this.refs.aceEditor.editor.getSession().setMode(customMode);
         // fetch('https://749d7bea-94d5-4b69-a2df-70414f6dfb4e.mock.pstmn.io/post')
         //     .then(res => res.json())
         //     .then(json => {
@@ -51,7 +55,7 @@ class App extends Component {
      **/
     renderDrawing() {
         var url = 'https://749d7bea-94d5-4b69-a2df-70414f6dfb4e.mock.pstmn.io/post';
-        var data = {data: this.state.code};
+        var data = {code: this.state.code};
 
         fetch(url, {
             method: 'POST',
@@ -89,13 +93,15 @@ class App extends Component {
 
 
     render() {
-
+        const options = {
+            selectOnLineNumbers: true
+        };
         return (
       <div className="App">
           <Notifications/>
           <div className="header">
               <img src={img} width="60" height="60" className="logo"/>
-              <div className="title">Lil Shapes</div>
+              <div className="title">Shapes</div>
               <a className='help-link' href='#section1'>Help</a>
           </div>
           <div className="wrapper">
@@ -103,17 +109,16 @@ class App extends Component {
               <div className="editor-title">
                   Your code here
               </div>
-          <Editor
-              className="editor"
-              value={this.state.code}
-              onValueChange={code => this.setState({ code })}
-              highlight={code => highlight(code, languages.js)}
-              padding={10}
-              style={{
-                  fontFamily: '"Fira code", "Fira Mono", monospace',
-                  fontSize: 14,
-              }}
-          />
+              <AceEditor
+                  ref="aceEditor"
+                  mode="javascript"
+                  theme="github"
+                  onChange={code => this.setState({ code })}
+                  name="editor"
+                  fontSize={14}
+                  value={this.state.code}
+                  editorProps={{$blockScrolling: true}}
+              />
               <AwesomeButton
                   className="run-code-button"
                   type="twitter"
