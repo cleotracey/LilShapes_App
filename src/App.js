@@ -54,12 +54,17 @@ class App extends Component {
      Fetches and renders the SVG image from the parser, or displays an error.
      **/
     renderDrawing() {
-        var url = 'https://749d7bea-94d5-4b69-a2df-70414f6dfb4e.mock.pstmn.io/post';
-        var data = {code: this.state.code};
+        var url = 'http://localhost:8080/greeting';
+        var data = {"code": this.state.code, isDebug: true};
+
+        console.log(JSON.parse(JSON.stringify(data)));
 
         fetch(url, {
             method: 'POST',
-            body: JSON.stringify(data),
+            body: JSON.parse(JSON.stringify(data)),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type':'application/json; charset=utf-8'}
         }).then(res => res.json())
             .then(response =>
                 this.setState({drawing: this.parse(response)})
@@ -69,26 +74,30 @@ class App extends Component {
 
     parse(response) {
 
+        console.log(response);
+
         // Empty or undefined response from server.
-        if (response === null || response[0] === null ||
-            response === 'undefined' || response[0] === 'undefined'
-            || !response[0].hasOwnProperty('svg')) {
+        if (response === null ||
+            response === 'undefined' ||
+            !response.hasOwnProperty('svg')) {
             return <svg height="400" width="400">
                 <text>"Oops! Something went wrong."</text>
             </svg>
 
         }
         // Error thrown from server.
-        if (response[0].hasOwnProperty('error')) {
-            return <svg height="400" width="400">
-                <text>{response[0]['error']}</text>
-            </svg>
+        if (response['error'] != null) {
+            return <svg>response['error']</svg>;
         }
 
         // Valid SVG to render drawing.
         else {
-            return response[0]['svg'];
+            return response['svg'];
         }
+    }
+
+    codeToValidJSON(code) {
+
     }
 
 

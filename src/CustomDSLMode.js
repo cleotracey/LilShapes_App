@@ -15,10 +15,10 @@ export class CustomHighlightRules extends window.ace.acequire("ace/mode/text_hig
                 regex: /(?:\d\d*(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+\b)?/
             }, {
                 token: "function.support",
-                regex: "circle|rectangle|ellipse|line|path"
+                regex: "circle|rectangle|ellipse|line |path"
             }, {
                 token: "constant.language.escape",
-                regex: "draw|to|from|at"
+                regex: "draw|to|from|at|move"
             }
             ],
 
