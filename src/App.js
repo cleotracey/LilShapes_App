@@ -96,11 +96,6 @@ class App extends Component {
         }
     }
 
-    codeToValidJSON(code) {
-
-    }
-
-
     render() {
         const options = {
             selectOnLineNumbers: true
