@@ -19,9 +19,7 @@ const exampleCode =
 `;
 
 
-const exampleImg = <svg height="100" width="100">
-    <circle cx="50" cy="50" r="40" fill="red" />
-</svg>
+const exampleImg = <circle cx="50" cy="50" r="40" fill="red" />
 
 class App extends Component {
 
@@ -54,14 +52,14 @@ class App extends Component {
      Fetches and renders the SVG image from the parser, or displays an error.
      **/
     renderDrawing() {
-        var url = 'http://localhost:8080/greeting';
-        var data = {"code": this.state.code, isDebug: true};
+        var url = '/greeting';
+        var data = {"code": this.state.code, "isDebug": true};
 
-        console.log(JSON.parse(JSON.stringify(data)));
+        console.log(JSON.stringify(data));
 
         fetch(url, {
             method: 'POST',
-            body: JSON.parse(JSON.stringify(data)),
+            body: JSON.stringify(data),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type':'application/json; charset=utf-8'}
@@ -94,6 +92,10 @@ class App extends Component {
         else {
             return response['svg'];
         }
+    }
+
+    createSVG() {
+        return {__html: this.state.drawing}
     }
 
     render() {
@@ -133,7 +135,7 @@ class App extends Component {
           <div className="drawing-wrapper">
               <div className="drawing-title">Your shapes here</div>
               <div className="drawing-canvas">
-                  {this.state.drawing}
+                <svg height="100%" width="100%" dangerouslySetInnerHTML={this.createSVG()} />
               </div>
           </div>
       </div>
