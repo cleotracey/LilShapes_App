@@ -13,10 +13,7 @@ import 'brace/theme/github';
 import CustomDSLMode from './CustomDSLMode.js';
 
 const exampleCode =
-    `circle "circle1"
-    radius: 40
-    color: red
-`;
+    'circle "circle1" radius: 40 color: red';
 
 
 const exampleImg = <svg height="100" width="100">
@@ -54,14 +51,12 @@ class App extends Component {
      Fetches and renders the SVG image from the parser, or displays an error.
      **/
     renderDrawing() {
-        var url = 'http://localhost:8080/greeting';
-        var data = {"code": this.state.code, isDebug: true};
-
-        console.log(JSON.parse(JSON.stringify(data)));
+        var url = '/greeting';
+        var data = {code: this.state.code, isDebug: true};
 
         fetch(url, {
             method: 'POST',
-            body: JSON.parse(JSON.stringify(data)),
+            body: JSON.stringify(data),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type':'application/json; charset=utf-8'}
