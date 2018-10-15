@@ -16,9 +16,7 @@ const exampleCode =
     'circle "circle1" radius: 40 color: red';
 
 
-const exampleImg = <svg height="100" width="100">
-    <circle cx="50" cy="50" r="40" fill="red" />
-</svg>
+const exampleImg = <circle cx="50" cy="50" r="40" fill="red" />
 
 class App extends Component {
 
@@ -52,7 +50,9 @@ class App extends Component {
      **/
     renderDrawing() {
         var url = '/greeting';
-        var data = {code: this.state.code, isDebug: true};
+        var data = {"code": this.state.code, "isDebug": true};
+
+        console.log(JSON.stringify(data));
 
         fetch(url, {
             method: 'POST',
@@ -89,6 +89,10 @@ class App extends Component {
         else {
             return response['svg'];
         }
+    }
+
+    createSVG() {
+        return {__html: this.state.drawing}
     }
 
     render() {
@@ -128,7 +132,7 @@ class App extends Component {
           <div className="drawing-wrapper">
               <div className="drawing-title">Your shapes here</div>
               <div className="drawing-canvas">
-                  {this.state.drawing}
+                <svg height="100%" width="100%" dangerouslySetInnerHTML={this.createSVG()} />
               </div>
           </div>
       </div>
