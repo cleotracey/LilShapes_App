@@ -11,12 +11,29 @@ import ScrollableAnchor from 'react-scrollable-anchor';
 import AceEditor from 'react-ace';
 import 'brace/theme/github';
 import CustomDSLMode from './CustomDSLMode.js';
+import ReactCursorPosition from 'react-cursor-position';
 
 const exampleCode =
     'circle "circle1" radius: 40 color: red';
 
-
 const exampleImg = <circle cx="50" cy="50" r="40" fill="red" />
+
+
+const Coordinates = (props) => {
+    const {
+        position: {
+            x = 0,
+            y = 0
+        } = {}
+    } = props;
+
+    return (
+        <div className="coordinates">
+            {`x: ${x}`}<br />
+            {`y: ${y}`}<br />
+        </div>)
+};
+
 
 class App extends Component {
 
@@ -25,7 +42,8 @@ class App extends Component {
         this.state = {
             items: [{'svg': exampleImg}],
             code: exampleCode,
-            drawing: exampleImg
+            drawing: exampleImg,
+            error: null
         };
         this.renderDrawing = this.renderDrawing.bind(this);
     }
@@ -34,14 +52,6 @@ class App extends Component {
 
         const customMode = new CustomDSLMode();
         this.refs.aceEditor.editor.getSession().setMode(customMode);
-        // fetch('https://749d7bea-94d5-4b69-a2df-70414f6dfb4e.mock.pstmn.io/post')
-        //     .then(res => res.json())
-        //     .then(json => {
-        //         this.setState({
-        //             items: json,
-        //             drawing: json['svg']
-        //         })
-        //     });
     }
 
     /**
@@ -50,7 +60,7 @@ class App extends Component {
      **/
     renderDrawing() {
         var url = '/greeting';
-        var data = {"code": this.state.code, "isDebug": true};
+        var data = {"code": this.state.code, "isDebug": false};
 
         console.log(JSON.stringify(data));
 
@@ -65,34 +75,35 @@ class App extends Component {
                 this.setState({drawing: this.parse(response)})
             )
             .catch(error => console.error('Error:', error));
+
     }
 
     parse(response) {
 
         console.log(response);
 
-        // Empty or undefined response from server.
-        if (response === null ||
-            response === 'undefined' ||
-            !response.hasOwnProperty('svg')) {
-            return <svg height="400" width="400">
-                <text>"Oops! Something went wrong."</text>
-            </svg>
-
-        }
-        // Error thrown from server.
         if (response['error'] != null) {
-            return <svg>response['error']</svg>;
+
+            this.setState({
+                error: <text x="0" y="15" fill="red">response['error']</text>
+            });
         }
 
-        // Valid SVG to render drawing.
         else {
+            this.setState({
+                error: null
+            });
             return response['svg'];
         }
+
     }
 
     createSVG() {
         return {__html: this.state.drawing}
+    }
+
+    createError() {
+        return {__html: this.state.error}
     }
 
     render() {
@@ -129,12 +140,15 @@ class App extends Component {
                   Draw my picture!
               </AwesomeButton>
           </div>
+              <ReactCursorPosition className="react-cursor">
           <div className="drawing-wrapper">
               <div className="drawing-title">Your shapes here</div>
               <div className="drawing-canvas">
-                <svg height="100%" width="100%" dangerouslySetInnerHTML={this.createSVG()} />
+                  <svg height="100%" width="100%" dangerouslySetInnerHTML={this.state.error != null ? this.createError() : this.createSVG()}/>
               </div>
           </div>
+                  <Coordinates/>
+              </ReactCursorPosition>
       </div>
           <ScrollableAnchor id={'section1'}>
           <div className="documentation">

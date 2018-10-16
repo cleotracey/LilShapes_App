@@ -78,12 +78,20 @@
 }
 
 .drawing-wrapper {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
   margin: 20px 20px 20px 0px;
   width: 50%;
   max-width: 700px;
   height: 100%;
   border: solid 1px gainsboro;
   border-radius: 2px;
+}
+
+.react-cursor {
+  display: flex;
+  flex: 1 1 auto;
 }
 
 .drawing-title {
