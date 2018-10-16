@@ -71,6 +71,17 @@
   align-items: center;
 }
 
+.error-console {
+  display: flex;
+  height: 100px;
+  background-color: whitesmoke;
+  padding: 10px;
+  font-family: Courier;
+  font-style: italic;
+  font-size: 16px;
+  color: red;
+}
+
 .run-code-button {
   display: flex;
   align-self: center;
@@ -127,6 +138,16 @@
   font-family: Roboto;
 }
 
+.docs-description {
+  font-weight: 400;
+  padding-top: 10px;
+  font-size: 18px;
+}
+
+.example-code {
+  font-size: 14px;
+  font-family: Courier;
+}
 
 
 

@@ -12,11 +12,7 @@ import AceEditor from 'react-ace';
 import 'brace/theme/github';
 import CustomDSLMode from './CustomDSLMode.js';
 import ReactCursorPosition from 'react-cursor-position';
-
-const exampleCode =
-    'circle "circle1" radius: 40 color: red';
-
-const exampleImg = <circle cx="50" cy="50" r="40" fill="red" />
+import rectImg from './rect-example.png';
 
 
 const Coordinates = (props) => {
@@ -40,12 +36,12 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-            items: [{'svg': exampleImg}],
-            code: exampleCode,
-            drawing: exampleImg,
+            items: [],
+            code: '',
+            drawing: '',
             error: null
         };
-        this.renderDrawing = this.renderDrawing.bind(this);
+        this.fetchDrawing = this.fetchDrawing.bind(this);
     }
 
     componentDidMount(){
@@ -58,7 +54,7 @@ class App extends Component {
      Sends the current code input to the DSL parser.
      Fetches and renders the SVG image from the parser, or displays an error.
      **/
-    renderDrawing() {
+    fetchDrawing() {
         var url = '/greeting';
         var data = {"code": this.state.code, "isDebug": false};
 
@@ -72,38 +68,39 @@ class App extends Component {
                 'Content-Type':'application/json; charset=utf-8'}
         }).then(res => res.json())
             .then(response =>
-                this.setState({drawing: this.parse(response)})
+                this.renderDrawing(response)
             )
             .catch(error => console.error('Error:', error));
-
     }
 
-    parse(response) {
+    renderDrawing(response) {
 
         console.log(response);
 
         if (response['error'] != null) {
 
             this.setState({
-                error: <text x="0" y="15" fill="red">response['error']</text>
+                error: response['error']
+            });
+        }
+
+        else if (response['svg'] === "") {
+            this.setState({
+                error: 'Oops! You haven\'t defined a proper shape to draw.'
             });
         }
 
         else {
             this.setState({
+                drawing: response['svg'],
                 error: null
             });
-            return response['svg'];
         }
 
     }
 
     createSVG() {
         return {__html: this.state.drawing}
-    }
-
-    createError() {
-        return {__html: this.state.error}
     }
 
     render() {
@@ -116,7 +113,7 @@ class App extends Component {
           <div className="header">
               <img src={img} width="60" height="60" className="logo"/>
               <div className="title">Shapes</div>
-              <a className='help-link' href='#section1'>Help</a>
+              <a className='help-link' href='#section1'>Examples</a>
           </div>
           <div className="wrapper">
           <div className="editor-container">
@@ -133,10 +130,13 @@ class App extends Component {
                   value={this.state.code}
                   editorProps={{$blockScrolling: true}}
               />
+              <div className="error-console">
+                  {this.state.error}
+              </div>
               <AwesomeButton
                   className="run-code-button"
                   type="twitter"
-                  action={this.renderDrawing}>
+                  action={this.fetchDrawing}>
                   Draw my picture!
               </AwesomeButton>
           </div>
@@ -144,7 +144,7 @@ class App extends Component {
           <div className="drawing-wrapper">
               <div className="drawing-title">Your shapes here</div>
               <div className="drawing-canvas">
-                  <svg height="100%" width="100%" dangerouslySetInnerHTML={this.state.error != null ? this.createError() : this.createSVG()}/>
+                  <svg height="100%" width="100%" dangerouslySetInnerHTML={this.createSVG()}/>
               </div>
           </div>
                   <Coordinates/>
@@ -152,8 +152,22 @@ class App extends Component {
       </div>
           <ScrollableAnchor id={'section1'}>
           <div className="documentation">
-              <div className="docs-title">Help</div>
-              <div className="docs-container"></div>
+              <div className="docs-title">Here's an example of code you can input to draw a picture.
+                  Copy and paste it into the editor and try it out for yourself!
+                  <div className="docs-description">Simple Rectangle </div>
+                  <div className="example-code">
+                      <ul>// This is rectangle</ul>
+                      <ul>rectangle "r1"</ul>
+                      <ul>color: turquoise</ul>
+                      <ul>height: 75</ul>
+                      <ul>width: 100</ul>
+                      <ul>draw r1 at 10, 10</ul>
+                  </div>
+                  <div className="example-pic">
+                      <div className="docs-description">Result: </div>
+                      <img src={rectImg} width="100" height="75" className="rect-img"/>
+                  </div>
+              </div>
           </div>
           </ScrollableAnchor>
       </div>
