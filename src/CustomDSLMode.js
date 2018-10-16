@@ -6,7 +6,7 @@ export class CustomHighlightRules extends window.ace.acequire("ace/mode/text_hig
         this.$rules = {
             "start": [{
                 token: "comment",
-                regex: "#.*$"
+                regex: "//.*$"
             }, {
                 token: "string",
                 regex: '".*?"'
