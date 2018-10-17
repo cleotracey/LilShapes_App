@@ -88,6 +88,18 @@
   width: 200px;
 }
 
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.debug-toggle {
+  display: flex;
+  justify-self: flex-end;
+  align-self: center;
+  padding: 3px;
+}
+
 .drawing-wrapper {
   display: flex;
   flex: 1 1 auto;

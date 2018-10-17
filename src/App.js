@@ -114,17 +114,6 @@ class App extends Component {
         console.log(this.state.isDebug)
     };
 
-
-    // toggleDebugMode = () => {
-    //     console.log('before togging' + this.state.isDebug);
-    //     this.setState(prevState => ({
-    //         isDebug: !prevState.isDebug
-    //     }));
-    //
-    //     console.log('after togging' + this.state.isDebug);
-    //
-    // };
-
     render() {
         const options = {
             selectOnLineNumbers: true
@@ -142,11 +131,6 @@ class App extends Component {
               <div className="editor-title">
                   Your code here
               </div>
-              <div>
-                  Debug Mode
-              </div><Checkbox
-                name="debug mode"
-                onChange={this.toggleDebugMode}/>
               <AceEditor
                   ref="aceEditor"
                   mode="javascript"
@@ -160,12 +144,19 @@ class App extends Component {
               <div className="error-console">
                   {this.state.error}
               </div>
+              <div className="button-wrapper">
               <AwesomeButton
                   className="run-code-button"
                   type="twitter"
                   action={this.fetchDrawing}>
                   Draw my picture!
               </AwesomeButton>
+              <div className="debug-toggle">
+                  Debug Mode
+              </div><Checkbox className="debug-toggle"
+              name="debug mode"
+              onChange={this.toggleDebugMode}/>
+              </div>
           </div>
               <ReactCursorPosition className="react-cursor">
           <div className="drawing-wrapper">

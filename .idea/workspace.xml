@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="859e7526-7112-492c-9a9e-252122138aa5" name="Default Changelist" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.css" afterPath="$PROJECT_DIR$/src/App.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.js" afterPath="$PROJECT_DIR$/src/App.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -41,24 +39,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="60" column="63" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+            <state relative-caret-position="403">
+              <caret line="155" column="53" lean-forward="false" selection-start-line="155" selection-start-column="53" selection-end-line="155" selection-end-column="53" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
-                <marker date="1539736551000" expanded="true" signature="5062:5082" ph="..." />
+                <marker date="1539737188000" expanded="true" signature="4892:4912" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="App.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/App.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="138" column="1" lean-forward="false" selection-start-line="138" selection-start-column="1" selection-end-line="138" selection-end-column="1" />
+            <state relative-caret-position="179">
+              <caret line="90" column="17" lean-forward="true" selection-start-line="90" selection-start-column="17" selection-end-line="90" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -650,6 +648,7 @@
       <find>renderdrawing</find>
       <find>isdebug</find>
       <find>toggle</find>
+      <find>create</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -678,8 +677,8 @@
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/CustomDSLMode.js" />
-        <option value="$PROJECT_DIR$/src/App.css" />
         <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/src/App.css" />
       </list>
     </option>
   </component>
@@ -1249,12 +1248,12 @@
       <workItem from="1539484678202" duration="10983000" />
       <workItem from="1539627271888" duration="514000" />
       <workItem from="1539630513535" duration="966000" />
-      <workItem from="1539637126014" duration="16020000" />
+      <workItem from="1539637126014" duration="16458000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59729000" />
+    <option name="totallyTimeSpent" value="60167000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1346,7 +1345,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
-            <marker date="1539736551000" expanded="true" signature="5062:5082" ph="..." />
+            <marker date="1539737188000" expanded="true" signature="4892:4912" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1973,7 +1972,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
-            <marker date="1539736551000" expanded="true" signature="5062:5082" ph="..." />
+            <marker date="1539737188000" expanded="true" signature="4892:4912" ph="..." />
           </folding>
         </state>
       </provider>
@@ -2026,7 +2025,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
-            <marker date="1539736551000" expanded="true" signature="5062:5082" ph="..." />
+            <marker date="1539737188000" expanded="true" signature="4892:4912" ph="..." />
           </folding>
         </state>
       </provider>
@@ -2674,22 +2673,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.css">
+    <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="138" column="1" lean-forward="false" selection-start-line="138" selection-start-column="1" selection-end-line="138" selection-end-column="1" />
-          <folding />
+        <state relative-caret-position="403">
+          <caret line="155" column="53" lean-forward="false" selection-start-line="155" selection-start-column="53" selection-end-line="155" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <marker date="1539737188000" expanded="true" signature="4892:4912" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
+    <entry file="file://$PROJECT_DIR$/src/App.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="60" column="63" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <marker date="1539736551000" expanded="true" signature="5062:5082" ph="..." />
-          </folding>
+        <state relative-caret-position="179">
+          <caret line="90" column="17" lean-forward="true" selection-start-line="90" selection-start-column="17" selection-end-line="90" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
