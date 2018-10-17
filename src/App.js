@@ -22,12 +22,24 @@ const Coordinates = (props) => {
             y = 0
         } = {}
     } = props;
-
+    //console.log("HAYYYYY")
+    //console.log(x)
+    if(x-11>680 || y-72>640 || x-11<0 || y-72<0){
+        //console.log("hello")
+        return (
+            <div className="coordinates">
+                {`x: `}<br />
+                {`y: `}<br />
+            </div>)
+    }
+    else{
     return (
         <div className="coordinates">
-            {`x: ${x}`}<br />
-            {`y: ${y}`}<br />
+            {`x: ${x-11}`}<br />
+            {`y: ${y-72}`}<br />
         </div>)
+    }
+
 };
 
 
@@ -129,7 +141,7 @@ class App extends Component {
           <div className="wrapper">
           <div className="editor-container">
               <div className="editor-title">
-                  Your code here
+                  Your Code Here
               </div>
               <AceEditor
                   ref="aceEditor"
@@ -149,7 +161,7 @@ class App extends Component {
                   className="run-code-button"
                   type="twitter"
                   action={this.fetchDrawing}>
-                  Draw my picture!
+                  Draw My Picture!
               </AwesomeButton>
               <div className="debug-toggle">
                   Debug Mode
@@ -160,7 +172,7 @@ class App extends Component {
           </div>
               <ReactCursorPosition className="react-cursor">
           <div className="drawing-wrapper">
-              <div className="drawing-title">Your shapes here</div>
+              <div className="drawing-title">Your Shapes Here</div>
               <div className="drawing-canvas">
                   <svg height="100%" width="100%" dangerouslySetInnerHTML={this.createSVG()}/>
               </div>
