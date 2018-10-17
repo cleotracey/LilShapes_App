@@ -13,7 +13,7 @@ import 'brace/theme/github';
 import CustomDSLMode from './CustomDSLMode.js';
 import ReactCursorPosition from 'react-cursor-position';
 import rectImg from './rect-example.png';
-
+import Checkbox from 'rc-checkbox';
 
 const Coordinates = (props) => {
     const {
@@ -39,9 +39,11 @@ class App extends Component {
             items: [],
             code: '',
             drawing: '',
-            error: null
+            error: null,
+            isDebug: false
         };
         this.fetchDrawing = this.fetchDrawing.bind(this);
+        this.toggleDebugMode = this.toggleDebugMode.bind(this);
     }
 
     componentDidMount(){
@@ -56,7 +58,7 @@ class App extends Component {
      **/
     fetchDrawing() {
         var url = '/greeting';
-        var data = {"code": this.state.code, "isDebug": false};
+        var data = {"code": this.state.code, "isDebug": this.state.isDebug};
 
         console.log(JSON.stringify(data));
 
@@ -96,12 +98,32 @@ class App extends Component {
                 error: null
             });
         }
-
     }
 
     createSVG() {
         return {__html: this.state.drawing}
     }
+
+
+
+    toggleDebugMode = (e) => {
+        console.log(e.target.checked);
+        this.setState({
+           isDebug: e.target.checked
+        });
+        console.log(this.state.isDebug)
+    };
+
+
+    // toggleDebugMode = () => {
+    //     console.log('before togging' + this.state.isDebug);
+    //     this.setState(prevState => ({
+    //         isDebug: !prevState.isDebug
+    //     }));
+    //
+    //     console.log('after togging' + this.state.isDebug);
+    //
+    // };
 
     render() {
         const options = {
@@ -113,13 +135,18 @@ class App extends Component {
           <div className="header">
               <img src={img} width="60" height="60" className="logo"/>
               <div className="title">Shapes</div>
-              <a className='help-link' href='#section1'>Examples</a>
+              <a className='help-link' href='#section1'>Help</a>
           </div>
           <div className="wrapper">
           <div className="editor-container">
               <div className="editor-title">
                   Your code here
               </div>
+              <div>
+                  Debug Mode
+              </div><Checkbox
+                name="debug mode"
+                onChange={this.toggleDebugMode}/>
               <AceEditor
                   ref="aceEditor"
                   mode="javascript"
